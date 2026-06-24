@@ -290,6 +290,19 @@
             box-shadow: 0 0 30px rgba(2, 132, 199, 0.15); 
             margin: 0 auto;
         }
+        /* Cho điện thoại (màn hình nhỏ hơn 768px) */
+        @media (max-width: 768px) {
+            .gallery-container {
+                grid-template-columns: repeat(2, 1fr); /* Chuyển thành 2 cột cho dễ nhìn */
+            }
+        }
+
+        /* Cho điện thoại rất nhỏ (màn hình nhỏ hơn 480px) */
+        @media (max-width: 480px) {
+            .gallery-container {
+                grid-template-columns: 1fr; /* Chỉ hiển thị 1 cột duy nhất */
+            }
+        }
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr); /* CHUYỂN SANG 4 CỘT */
