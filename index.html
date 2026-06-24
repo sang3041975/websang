@@ -125,6 +125,9 @@
             e.stopPropagation();
             // Thay 'db' bằng 'window.db'
             await deleteDoc(doc(window.db, "images", id)); 
+            e.target.closest('.gallery-item').remove(); 
+    
+            alert("Đã xóa ảnh thành công!");
         }
         function openLightbox(src) {
             // Tìm vị trí của ảnh này trong danh sách để biết ta đang ở đâu
