@@ -101,7 +101,7 @@
                 const div = document.createElement('div');
                 div.className = 'gallery-item';
                 div.innerHTML = `
-                    <button class="btn-delete-item" onclick="deleteItem(event, ${item.id})">✕</button>
+                    <button class="btn-delete-item" onclick="deleteItem(event, '${item.id}')">✕</button>
                     <div class="item-title">[ ${item.title} ]</div>
                     <div class="image-box" onclick="openLightbox('${item.data}')">
                         <img src="${item.data}">
