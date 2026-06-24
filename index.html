@@ -290,25 +290,32 @@
             box-shadow: 0 0 30px rgba(2, 132, 199, 0.15); 
             margin: 0 auto;
         }
-        /* Cho điện thoại (màn hình nhỏ hơn 768px) */
-        @media (max-width: 768px) {
-            .gallery-container {
-                grid-template-columns: repeat(2, 1fr); /* Chuyển thành 2 cột cho dễ nhìn */
+        /* Thiết lập cho màn hình nhỏ (Điện thoại) */
+        @media (max-width: 600px) {
+            #gallery-grid {
+                /* Chuyển từ 4 cột sang 1 cột duy nhất trên điện thoại */
+                grid-template-columns: 1fr !important; 
+            }
+            .gallery-item {
+                /* Đảm bảo mỗi mục chiếm hết chiều ngang */
+                width: 100%;
             }
         }
 
-        /* Cho điện thoại rất nhỏ (màn hình nhỏ hơn 480px) */
-        @media (max-width: 480px) {
-            .gallery-container {
-                grid-template-columns: 1fr; /* Chỉ hiển thị 1 cột duy nhất */
+        /* Thiết lập cho màn hình máy tính bảng */
+        @media (min-width: 601px) and (max-width: 1024px) {
+            #gallery-grid {
+                /* Chia thành 2 cột cho máy tính bảng */
+                grid-template-columns: repeat(2, 1fr) !important;
             }
         }
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* CHUYỂN SANG 4 CỘT */
             gap: 30px 15px; /* Giảm gap để vừa vặn 4 cột */
             padding: 40px 0 20px 0;
             width: 100%;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            
         }
         .gallery-item {
             position: relative; 
