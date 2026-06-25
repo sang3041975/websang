@@ -139,14 +139,33 @@
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').style.display = 'flex';
         }
+        // Dùng đoạn code này thay thế cho hàm changeImage hiện tại của bạn
         function changeImage(step) {
-            // Thay đổi index
-            let filtered = galleryImages.filter(img => img.category === currentCategory);
-            if (searchQuery) filtered = filtered.filter(img => img.title.toLowerCase().includes(searchQuery));
-            currentIndex += step;
-            if (currentIndex < 0) currentIndex = galleryImages.length - 1;
-            if (currentIndex >= galleryImages.length) currentIndex = 0;
-            document.getElementById('lightbox-img').src = galleryImages[currentIndex].data;
+            // BƯỚC 1: LẤY DANH SÁCH ẢNH ĐANG ĐƯỢC LỌC (GIỐNG HỆT TRONG RENDERGALLERY)
+            let filtered = galleryImages; // Bắt đầu với tất cả ảnh
+
+            // a. Áp dụng bộ lọc danh mục
+            if (currentCategory !== 'All') {
+                filtered = galleryImages.filter(img => img.category === currentCategory);
+            }
+
+            // b. Áp dụng bộ lọc tìm kiếm
+            if (searchQuery) {
+                filtered = filtered.filter(img => img.title.toLowerCase().includes(searchQuery));
+            }
+
+            // Nếu không có ảnh nào, thoát luôn
+            if (filtered.length === 0) return;
+
+            // BƯỚC 2: TÍNH TOÁN INDEX MỚI DỰA TRÊN DANH SÁCH ĐÃ LỌC
+            // (Dùng phép toán chia lấy dư % để đảm bảo nó quay vòng)
+            currentIndex = (currentIndex + step + filtered.length) % filtered.length;
+
+            // BƯỚC 3: CẬP NHẬT ẢNH TRÊN LIGHTBOX
+            document.getElementById('lightbox-img').src = filtered[currentIndex].data;
+    
+            // Tùy chọn: Cập nhật thêm tiêu đề nếu muốn
+            // document.getElementById('lightbox-title').innerText = filtered[currentIndex].title;
         }
         let currentIndex = 0; // Biến lưu chỉ số ảnh đang xem
         document.addEventListener('keydown', function(e) {
