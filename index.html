@@ -15,7 +15,7 @@
         window.changeImage = changeImage;
         // Thêm vào trong thẻ <script type="module">
         window.galleryImages = [];
-        window.currentCategory = 'Phong cảnh';
+        window.currentCategory = 'Clannad';
         window.searchQuery = '';
         window.IMAGES_PER_PAGE = 32;
         window.currentPage = 1;
@@ -89,7 +89,11 @@
             const grid = document.getElementById('gallery-grid');
             const pagination = document.getElementById('pagination');
             grid.innerHTML = ''; pagination.innerHTML = '';
-            let filtered = galleryImages.filter(img => img.category === currentCategory);
+            let filtered = galleryImages; // Bước 1: Mặc định lấy tất cả ảnh
+
+            if (currentCategory !== 'All') { // Bước 2: Chỉ lọc nếu category khác 'All'
+                filtered = galleryImages.filter(img => img.category === currentCategory);
+            }
             if (searchQuery) filtered = filtered.filter(img => img.title.toLowerCase().includes(searchQuery));
             if (!filtered.length) {
                 grid.innerHTML = `<div class="no-results">Thư mục [${currentCategory}] trống.</div>`;
@@ -125,9 +129,9 @@
             e.stopPropagation();
             // Thay 'db' bằng 'window.db'
             await deleteDoc(doc(window.db, "images", id)); 
-            e.target.closest('.gallery-item').remove(); 
+            
     
-            alert("Đã xóa ảnh thành công!");
+            
         }
         function openLightbox(src) {
             // Tìm vị trí của ảnh này trong danh sách để biết ta đang ở đâu
