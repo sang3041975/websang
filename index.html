@@ -134,8 +134,19 @@
             
         }
         function openLightbox(src) {
-            // Tìm vị trí của ảnh này trong danh sách để biết ta đang ở đâu
-            currentIndex = galleryImages.findIndex(img => img.data === src);
+            // 1. Tạo lại mảng filtered giống hệt logic trong renderGallery/changeImage
+            let filtered = galleryImages;
+            if (currentCategory !== 'All') {
+                filtered = galleryImages.filter(img => img.category === currentCategory);
+            }
+            if (searchQuery) {
+                filtered = filtered.filter(img => img.title.toLowerCase().includes(searchQuery));
+            }
+
+            // 2. Tìm index của ảnh trong mảng ĐÃ LỌC
+            currentIndex = filtered.findIndex(img => img.data === src);
+    
+            // 3. Hiển thị
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').style.display = 'flex';
         }
