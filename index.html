@@ -142,8 +142,10 @@
             console.log("Đã gọi được hàm filterCategory!");
             document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
-            currentCategory = cat;
-            currentPage = 1;
+            window.currentCategory = cat;
+            window.currentPage = 1;
+            window.applyBackground(cat);
+            window.renderGallery();
 
             if (backgroundUrls[cat]) {
                 document.body.style.backgroundImage = `url("${backgroundUrls[cat]}")`;
@@ -161,6 +163,12 @@
             });
         }
         preloadBackgrounds();
+
+        // 3. Các hàm xử lý (Gắn vào window để gọi từ onclick trong HTML)
+        window.applyBackground = (cat) => {
+            const url = backgroundUrls[cat] || 'https://res.cloudinary.com/default-bg.jpg';
+            document.body.style.backgroundImage = `url("${url}")`;
+        };
         
         // 3. Sửa hàm filterCategory để đổi nền mượt mà
         
