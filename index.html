@@ -100,9 +100,42 @@
             body.style.backgroundImage = backgroundMap[cat] || 'url("hinh-nen-bau-troi-chill-10.jpg")'
             renderGallery();
         }
+        // 1. Khai báo danh sách ảnh nền (chỉ cần làm 1 lần)
+        const backgroundUrls = {
+            'Clannad': 'clannad-tomoya-okazaki-ushio-okazaki-okazaki-ushio-wallpaper-preview.jpg',
+            'Air': '8420bfad8ae2461f10decdc4d75ba993.jpg',
+            'Little Busters': '488708789_1114601607348984_6705454001310567445_n.jpg'
+            'Rewrite': 'CGKagari.png'
+            'Kanon': 'filters_quality(95)format(webp).webp'
+            'Angel Beats': 'angel-beats-anime-girls-piano-angel-wallpaper-preview.jpg'
+            'Anemoi': 'lFG6ACWFGOSsrwnQBThUpuTd8XXOwFSx6CQ2bRMZpe74vmGOwfbfH3CCArFmAfdV0N0uuOipKP-biKtABTAEl49mGjjmfIRHNn82DpoEq93q0tCzujAcpazDIz90HaHzEScUa_kw5aMx1FjYuP8xN3e2rHdb5afFLn7uMs6p10w.webp'
+            'Summer Pockets': 'thumb-1920-778267.jpg'
+            // ... thêm các mục khác
+        };
+        
+        // 2. Hàm preload ảnh (chạy ngay khi load trang)
+        function preloadBackgrounds() {
+            Object.values(backgroundUrls).forEach(url => {
+                const img = new Image();
+                img.src = url;
+            });
+        }
+        preloadBackgrounds();
+        
+        // 3. Sửa hàm filterCategory để đổi nền mượt mà
+        function filterCategory(cat, el) {
+            // ... code hiện tại ...
+            
+            // Đổi nền bằng link đã preload sẵn
+            if (backgroundUrls[cat]) {
+                document.body.style.backgroundImage = `url("${backgroundUrls[cat]}")`;
+            }
+        }
+        
+        // 4. Sửa hàm onload để F5 không bị đen
         window.onload = () => {
-            // Gọi hàm đổi nền mặc định khi trang vừa tải
-            applyBackground('Clannad'); 
+            // Set nền mặc định là Clannad ngay lập tức
+            document.body.style.backgroundImage = `url("${backgroundUrls['Clannad']}")`;
             renderGallery();
         };
         function renderGallery() {
