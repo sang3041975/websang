@@ -83,8 +83,12 @@
             el.classList.add('active');
             currentCategory = cat;
             currentPage = 1;
+            localStorage.setItem('lastCategory',cat);
             renderGallery();
         }
+        // Lấy category cuối đã xem (nếu có)
+        const savedCat = localStorage.getItem('lastCategory') || 'Clannad';
+        window.currentCategory = savedCat;
         function renderGallery() {
             const grid = document.getElementById('gallery-grid');
             const pagination = document.getElementById('pagination');
@@ -108,7 +112,7 @@
                     <button class="btn-delete-item" onclick="deleteItem(event, '${item.id}')">✕</button>
                     <div class="item-title">[ ${item.title} ]</div>
                     <div class="image-box" onclick="openLightbox('${item.data}')">
-                        <img src="${item.data}">
+                        <img src="${item.data}" loading="lazy" alt="${item.tittle}">
                     </div>
                     <button class="btn-action" onclick="openLightbox('${item.data}')">拡大表示</button>
                 `;
@@ -394,12 +398,18 @@
             height: 270px; /* GIẢM ĐỘ CAO: Từ 400px xuống 320px để cân đối 4 cột */
             border: 1px solid #cbd5e1;
             padding: 4px; 
-            background-color: #f8fafc; 
+            background-color: #e2e8f0; 
+            animation: pulse 1.5s infinite;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             cursor: zoom-in; 
+        }
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
         }
         .image-box img {
             max-width: 100%;
