@@ -127,11 +127,11 @@
         function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
         async function deleteItem(e, id) {
             e.stopPropagation();
-            // Thay 'db' bằng 'window.db'
-            await deleteDoc(doc(window.db, "images", id)); 
-            
-    
-            
+
+                const isConfirmed = confirm("Bạn có muốn xoá không?");
+                if (isConfirmed) {
+                    await deleteDoc(doc(window.db, "images", id)); 
+                }   
         }
         function openLightbox(src) {
             // 1. Tạo lại mảng filtered giống hệt logic trong renderGallery/changeImage
