@@ -81,11 +81,14 @@
             currentPage = 1;
             renderGallery();
         }
-        function filterCategory(cat, el) {
+        window.filterCategory(cat, el) {
             document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
             currentCategory = cat;
             currentPage = 1;
+
+            if (backgroundUrls[cat]) {
+                document.body.style.backgroundImage = `url("${backgroundUrls[cat]}")`;
 
             const body = document.body;
 
@@ -126,14 +129,7 @@
         preloadBackgrounds();
         
         // 3. Sửa hàm filterCategory để đổi nền mượt mà
-        function filterCategory(cat, el) {
-            // ... code hiện tại ...
-            
-            // Đổi nền bằng link đã preload sẵn
-            if (backgroundUrls[cat]) {
-                document.body.style.backgroundImage = `url("${backgroundUrls[cat]}")`;
-            }
-        }
+        
         
         // 4. Sửa hàm onload để F5 không bị đen
         window.onload = () => {
@@ -141,7 +137,7 @@
             document.body.style.backgroundImage = `url("${backgroundUrls['Clannad']}")`;
             renderGallery();
         };
-        function renderGallery() {
+        window.renderGallery() {
             const grid = document.getElementById('gallery-grid');
             const pagination = document.getElementById('pagination');
             grid.innerHTML = ''; pagination.innerHTML = '';
@@ -189,7 +185,7 @@
     
             
         }
-        function openLightbox(src) {
+        window.openLightbox(src) {
             // 1. Tạo lại mảng filtered giống hệt logic trong renderGallery/changeImage
             let filtered = galleryImages;
             if (currentCategory !== 'All') {
@@ -207,7 +203,7 @@
             document.getElementById('lightbox').style.display = 'flex';
         }
         // Dùng đoạn code này thay thế cho hàm changeImage hiện tại của bạn
-        function changeImage(step) {
+        window.changeImage(step) {
             // BƯỚC 1: LẤY DANH SÁCH ẢNH ĐANG ĐƯỢC LỌC (GIỐNG HỆT TRONG RENDERGALLERY)
             let filtered = galleryImages; // Bắt đầu với tất cả ảnh
 
