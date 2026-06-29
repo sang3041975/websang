@@ -43,6 +43,9 @@
         window.deleteDoc = deleteDoc;
         window.doc = doc;
 
+        // Thêm đoạn này ngay dưới các dòng khai báo biến window.galleryImages = ...
+        const { galleryImages, currentCategory, searchQuery, IMAGES_PER_PAGE, currentPage } = window;
+
         onSnapshot(collection(window.db, "images"), (snapshot) => {
             galleryImages = [];
             snapshot.forEach((doc) => {
@@ -104,12 +107,12 @@
         const backgroundUrls = {
             'Clannad': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/clannad-tomoya-okazaki-ushio-okazaki-okazaki-ushio-wallpaper-preview_vdbosu.jpg',
             'Air': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722042/8420bfad8ae2461f10decdc4d75ba993_dioe8v.jpg',
-            'Little Busters': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722042/488708789_1114601607348984_6705454001310567445_n_drbypw.jpg'
-            'Rewrite': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722059/CGKagari_d447b3.png'
-            'Kanon': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/filters_quality_95_format_webp_mrtbd1.webp'
-            'Angel Beats': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/angel-beats-anime-girls-piano-angel-wallpaper-preview_dcc0wp.jpg'
-            'Anemoi': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/lFG6ACWFGOSsrwnQBThUpuTd8XXOwFSx6CQ2bRMZpe74vmGOwfbfH3CCArFmAfdV0N0uuOipKP-biKtABTAEl49mGjjmfIRHNn82DpoEq93q0tCzujAcpazDIz90HaHzEScUa_kw5aMx1FjYuP8xN3e2rHdb5afFLn7uMs6p10w_hakyr5.webp'
-            'Summer Pockets': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722073/thumb-1920-778267_ht3lo1.jpg'
+            'Little Busters': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722042/488708789_1114601607348984_6705454001310567445_n_drbypw.jpg',
+            'Rewrite': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722059/CGKagari_d447b3.png',
+            'Kanon': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/filters_quality_95_format_webp_mrtbd1.webp',
+            'Angel Beats': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/angel-beats-anime-girls-piano-angel-wallpaper-preview_dcc0wp.jpg',
+            'Anemoi': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/lFG6ACWFGOSsrwnQBThUpuTd8XXOwFSx6CQ2bRMZpe74vmGOwfbfH3CCArFmAfdV0N0uuOipKP-biKtABTAEl49mGjjmfIRHNn82DpoEq93q0tCzujAcpazDIz90HaHzEScUa_kw5aMx1FjYuP8xN3e2rHdb5afFLn7uMs6p10w_hakyr5.webp',
+            'Summer Pockets': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722073/thumb-1920-778267_ht3lo1.jpg',
             // ... thêm các mục khác
         };
         
