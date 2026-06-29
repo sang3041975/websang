@@ -104,7 +104,16 @@
                 'Clannad': 'url(clannad-tomoya-okazaki-ushio-okazaki-okazaki-ushio-wallpaper-preview.jpg)',
                 'Air': 'url(8420bfad8ae2461f10decdc4d75ba993.jpg)',
                 'Default': 'url(hinh-nen-bau-troi-chill-10.jpg)'
+
+            
             };
+            if (cat === 'Clannad') {
+                createFloatingItems('dango.png', 8); // Thay link ảnh dango của bạn vào
+            } else if (cat === 'Air') {
+                createFloatingItems('feather.jfif', 8);
+            } else {
+                document.getElementById('effect-container').innerHTML = ''; // Xóa hết nếu không phải Clannad/Air
+            }
 
             bgLayer.style.backgroundImage = backgrounds[cat] || 'url("hinh-nen-bau-troi-chill-10.jpg")';
 
@@ -227,24 +236,25 @@
         };
         btnTop.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
 
-        function triggerCategoryEffect(cat) {
-            const container = document.getElementById('effect-container'); // Một div rỗng chứa hiệu ứng
-            container.innerHTML = ''; // Xóa hiệu ứng cũ
         
-            if (cat === 'Clannad') {
-                createFloatingItems(container, 'dango.png', 10); // Tạo 10 dango
-            } else if (cat === 'Air') {
-                createFloatingItems(container, 'feather.jfif', 8); // Tạo 8 lông vũ
-            }
-        }
         
-        function createFloatingItems(container, imageSrc, count) {
+        function createFloatingItems(imageSrc, count) {
+            const container = document.getElementById('effect-container');
+            container.innerHTML = ''; // Xóa sạch cái cũ trước khi tạo mới
+            
             for (let i = 0; i < count; i++) {
                 const item = document.createElement('div');
-                item.className = 'floating-item';
+                item.style.position = 'absolute';
+                item.style.width = '50px';
+                item.style.height = '50px';
                 item.style.backgroundImage = `url('${imageSrc}')`;
+                item.style.backgroundSize = 'contain';
                 item.style.left = Math.random() * 100 + 'vw';
-                item.style.animationDuration = (Math.random() * 5 + 5) + 's'; // Tốc độ ngẫu nhiên
+                item.style.top = '100vh';
+                // Hiệu ứng bay
+                item.style.animation = `floatUp ${Math.random() * 5 + 5}s linear infinite`;
+                item.style.animationDelay = `${Math.random() * 5}s`;
+                
                 container.appendChild(item);
             }
         }
@@ -599,8 +609,8 @@
         }
         
         @keyframes floatUp {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-110vh); }
+            0% { transform: translateY(0); opacity: 1;}
+            100% { transform: translateY(-110vh); opacity: 0;}
         }
         
         /* Riêng lông vũ thì thêm lắc lư */
@@ -612,7 +622,7 @@
 <body>
     <div class="bg-layer" id="bg-layer"></div>
     <button id="backToTop" style="position:fixed; bottom:20px; right:20px; display:none; padding:10px; border-radius:50%; border:none; background:#0284c7; color:white; cursor:pointer;">↑</button>
-
+    <div id="effect-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></div>
     <header class="gallery-header">
         <div class="logo">ANEMOI</div>
         <nav class="nav-links">
