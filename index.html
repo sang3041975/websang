@@ -226,6 +226,8 @@
             btnTop.style.display = (document.documentElement.scrollTop > 300) ? "block" : "none";
         };
         btnTop.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+
+        
         </script>
 
         <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
@@ -352,15 +354,19 @@
             display: none;
         }
         .gallery-container {
-            background-color: rgba(255, 255, 255, 0.85); 
+            background-color: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rba(255, 255, 255, 0.3);
+            border-radius: 20px;
             width: 90%;
             max-width: 1200px; 
             min-height: 580px; 
-            padding: 0 40px; /* Giảm nhẹ padding bên trong để ảnh to hơn */
+            padding: 20px 40px; /* Giảm nhẹ padding bên trong để ảnh to hơn */
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 30px rgba(2, 132, 199, 0.15); 
-            margin: 0 auto;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            margin: 20px auto;
         }
         /* Thiết lập cho màn hình nhỏ (Điện thoại) */
         @media (max-width: 600px) {
@@ -391,11 +397,15 @@
         }
         .gallery-item {
             position: relative; 
+            background: rgba(255, 255, 255, 0.2);
             display: flex;
+            padding: 15px;
             flex-direction: column;
             align-items: center;
             width: 100%;
             animation: fadeIn 0.8s ease-in-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
         }
         @keyframes fadeIn {
             from { opacity: 0; transfrom: translateY(20px); }
@@ -415,6 +425,10 @@
             z-index: 10;
             opacity: 0; 
             transition: all 0.2s;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.3);
         }
         .gallery-item:hover .btn-delete-item {
             opacity: 1;
