@@ -15,10 +15,23 @@
         window.changeImage = changeImage;
         // Thêm vào trong thẻ <script type="module">
         window.galleryImages = [];
-        window.currentCategory = 'Clannad';
+        window.currentCategory = localStorage.getItem('lastCategory') || 'Clannad';
         window.searchQuery = '';
         window.IMAGES_PER_PAGE = 32;
         window.currentPage = 1;
+
+        // Thêm sự kiện để tự động chọn đúng Tab khi tải trang
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tìm tab nào có tên trùng với category hiện tại
+            const tabs = document.querySelectorAll('.category-tab');
+            tabs.forEach(tab => {
+                // Kiểm tra nếu nội dung của tab khớp với category đã lưu
+                if (tab.innerText.trim() === window.currentCategory) {
+                    tabs.forEach(t => t.classList.remove('active')); // Bỏ active cũ
+                    tab.classList.add('active'); // Thêm active vào tab đúng
+                }
+            });
+        });
         // Import Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
