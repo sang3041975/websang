@@ -83,6 +83,14 @@
             el.classList.add('active');
             currentCategory = cat;
             currentPage = 1;
+
+            const body = document.body;
+
+            const backgroundMap = {
+
+                'Rewrite': 'url("CGKagari.PNG")',
+            }
+            body.style.backgroundImage = backgroundMap[cat] || 'url("hinh-nen-bau-troi-chill-10.JPG")'
             renderGallery();
         }
         function renderGallery() {
