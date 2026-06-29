@@ -98,6 +98,15 @@
             currentPage = 1;
             localStorage.setItem('lastCategory',cat);
             renderGallery();
+
+            const backgrounds = {
+                'Clannad': 'url(clannad-tomoya-okazaki-ushio-okazaki-okazaki-ushio-wallpaper-preview.jpg)',
+                'Air': 'url(8420bfad8ae2461f10decdc4d75ba993.jpg)',
+                'Default': 'url(hinh-nen-bau-troi-chill-10.jpg)'
+            };
+            document.body.style.backgroundImage = backgrounds[cat] || backgrounds['Default'];
+            document.body.style.transition = "background 0.5s ease";
+            
         }
         // Lấy category cuối đã xem (nếu có)
         const savedCat = localStorage.getItem('lastCategory') || 'Clannad';
@@ -208,6 +217,12 @@
                 }
             }
         });
+
+        const btnTop = document.ElementById("backToTop");
+        window.onscroll = () => {
+            btnTop.style.display = (document.documentElement.scrollTop > 300) ? "block" : "none";
+        };
+        btnTop.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
         </script>
 
         <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
@@ -377,6 +392,11 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transfrom: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .btn-delete-item {
             position: absolute;
@@ -482,7 +502,7 @@
             z-index: 999; display: none; 
             justify-content: center; align-items: center;
         }
-        .lightbox-overlay.active { display: flex; }
+        .lightbox-overlay.active { display: flex; backdrop-filter: blur(10px);}
         .lightbox-image {
             max-width: 90%; max-height: 85%;
             border: 4px solid white;
@@ -515,6 +535,7 @@
     </style>
 </head>
 <body>
+    <button id="backToTop" style="position:fixed; bottom:20px; right:20px; display:none; padding:10px; border-radius:50%; border:none; background:#0284c7; color:white; cursor:pointer;">↑</button>
 
     <header class="gallery-header">
         <div class="logo">ANEMOI</div>
