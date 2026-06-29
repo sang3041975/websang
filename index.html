@@ -23,7 +23,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // Cấu hình của bạn
+        // Cấu hình của bạn (Thay thế các thông tin bên dưới thông qua firebase)
         const firebaseConfig = {
             apiKey: "AIzaSyDqjjFGMhVq8wF0_Tv3z7CCupB1Z2wKuPc",
             authDomain: "anemoi-4e558.firebaseapp.com",
@@ -43,9 +43,6 @@
         window.deleteDoc = deleteDoc;
         window.doc = doc;
 
-        // Thêm đoạn này ngay dưới các dòng khai báo biến window.galleryImages = ...
-        const { galleryImages, currentCategory, searchQuery, IMAGES_PER_PAGE, currentPage } = window;
-
         onSnapshot(collection(window.db, "images"), (snapshot) => {
             galleryImages = [];
             snapshot.forEach((doc) => {
@@ -56,7 +53,7 @@
         });
         const cloudName = "dhhzaymet"; 
         const uploadPreset = "jh3cmolr";
-        window.triggerUpload = () => {
+        function triggerUpload() {
             const myWidget = cloudinary.createUploadWidget({
                 cloudName: "dhhzaymet",
                 uploadPreset: "jh3cmolr",
@@ -75,29 +72,20 @@
                 }
             });
             myWidget.open();
-        };
-        window.handleSearch = () => {
+        }
+        function handleSearch() {
             searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
             currentPage = 1;
             renderGallery();
-        };
-        
-        // 1. Khai báo danh sách ảnh nền (chỉ cần làm 1 lần)
-        const backgroundUrls = {
-            'Clannad': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/clannad-tomoya-okazaki-ushio-okazaki-okazaki-ushio-wallpaper-preview_vdbosu.jpg',
-            'Air': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722042/8420bfad8ae2461f10decdc4d75ba993_dioe8v.jpg',
-            'Little Busters': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722042/488708789_1114601607348984_6705454001310567445_n_drbypw.jpg',
-            'Rewrite': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722059/CGKagari_d447b3.png',
-            'Kanon': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/filters_quality_95_format_webp_mrtbd1.webp',
-            'Angel Beats': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/angel-beats-anime-girls-piano-angel-wallpaper-preview_dcc0wp.jpg',
-            'Anemoi': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/lFG6ACWFGOSsrwnQBThUpuTd8XXOwFSx6CQ2bRMZpe74vmGOwfbfH3CCArFmAfdV0N0uuOipKP-biKtABTAEl49mGjjmfIRHNn82DpoEq93q0tCzujAcpazDIz90HaHzEScUa_kw5aMx1FjYuP8xN3e2rHdb5afFLn7uMs6p10w_hakyr5.webp',
-            'Summer Pockets': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722073/thumb-1920-778267_ht3lo1.jpg'
-
-        }; // <--- Chỉ để dấu đóng ngoặc nhọn ở đây, không được có g
-
-
-        window.renderGallery = () => {
-            console.log("Đang render:", window.galleryImages);
+        }
+        function filterCategory(cat, el) {
+            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            currentCategory = cat;
+            currentPage = 1;
+            renderGallery();
+        }
+        function renderGallery() {
             const grid = document.getElementById('gallery-grid');
             const pagination = document.getElementById('pagination');
             grid.innerHTML = ''; pagination.innerHTML = '';
@@ -135,51 +123,7 @@
                     pagination.appendChild(btn);
                 }
             }
-        };
-
-
-        window.filterCategory = (cat, el) => {
-            console.log("Đã gọi được hàm filterCategory!");
-            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
-            window.currentCategory = cat;
-            window.currentPage = 1;
-            window.applyBackground(cat);
-            window.renderGallery();
-
-            if (backgroundUrls[cat]) {
-                document.body.style.backgroundImage = `url("${backgroundUrls[cat]}")`;
-
-            const body = document.body;
-            }
-        };
-
-            
-        // 2. Hàm preload ảnh (chạy ngay khi load trang)
-        function preloadBackgrounds() {
-            Object.values(backgroundUrls).forEach(url => {
-                const img = new Image();
-                img.src = url;
-            });
         }
-        preloadBackgrounds();
-
-        // 3. Các hàm xử lý (Gắn vào window để gọi từ onclick trong HTML)
-        window.applyBackground = (cat) => {
-            const url = backgroundUrls[cat] || 'https://res.cloudinary.com/default-bg.jpg';
-            document.body.style.backgroundImage = `url("${url}")`;
-        };
-        
-        // 3. Sửa hàm filterCategory để đổi nền mượt mà
-        
-        
-        // 4. Sửa hàm onload để F5 không bị đen
-        window.onload = () => {
-            // Set nền mặc định là Clannad ngay lập tức
-            document.body.style.backgroundImage = `url("${backgroundUrls['Clannad']}")`;
-            renderGallery();
-        };
-        
         function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
         async function deleteItem(e, id) {
             e.stopPropagation();
@@ -188,8 +132,8 @@
             
     
             
-        };
-        window.openLightbox = (src) => {
+        }
+        function openLightbox(src) {
             // 1. Tạo lại mảng filtered giống hệt logic trong renderGallery/changeImage
             let filtered = galleryImages;
             if (currentCategory !== 'All') {
@@ -205,9 +149,9 @@
             // 3. Hiển thị
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').style.display = 'flex';
-        };
+        }
         // Dùng đoạn code này thay thế cho hàm changeImage hiện tại của bạn
-        window.changeImage = (step) => {
+        function changeImage(step) {
             // BƯỚC 1: LẤY DANH SÁCH ẢNH ĐANG ĐƯỢC LỌC (GIỐNG HỆT TRONG RENDERGALLERY)
             let filtered = galleryImages; // Bắt đầu với tất cả ảnh
 
@@ -233,7 +177,7 @@
     
             // Tùy chọn: Cập nhật thêm tiêu đề nếu muốn
             // document.getElementById('lightbox-title').innerText = filtered[currentIndex].title;
-        };
+        }
         let currentIndex = 0; // Biến lưu chỉ số ảnh đang xem
         document.addEventListener('keydown', function(e) {
             // Chỉ chạy nếu Lightbox đang mở
@@ -247,7 +191,6 @@
                 }
             }
         });
-        
         </script>
 
         <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
@@ -263,20 +206,12 @@
         body {
             background-image: url('hinh-nen-bau-troi-chill-10.jpg'); 
             background-size: cover;
-            background-position: center;
+            background-position: center top;
             background-repeat: no-repeat;
             background-attachment: fixed; 
             display: flex;
             flex-direction: column; 
             align-items: center;
-            transition: background-image 0.8s ease-in-out;
-        }
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Lớp phủ đen 40% */
-            z-index: -1; /* Luôn nằm dưới ảnh gallery */
         }
         .gallery-header {
             display: flex;
@@ -417,8 +352,6 @@
             padding: 40px 0 20px 0;
             width: 100%;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            transition: all 0.3s ease;
-            
             
         }
         .gallery-item {
@@ -427,17 +360,6 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 250px; /* Chiều cao cố định, bạn có thể chỉnh theo ý muốn */
-            object-fit: cover; /* Cắt ảnh lấp đầy khung mà không làm biến dạng tỷ lệ */
-            border-radius: 8px; /* Bo góc ảnh cho đẹp */
-            transition: transform 0.3s ease; /* Hiệu ứng nhẹ khi di chuột vào */
-        }
-        
-        .gallery-item img:hover {
-            transform: scale(1.02); /* Phóng nhẹ khi di chuột vào ảnh */
         }
         .btn-delete-item {
             position: absolute;
@@ -482,9 +404,8 @@
         .image-box img {
             max-width: 100%;
             max-height: 100%;
-            object-fit: cover; 
+            object-fit: contain; 
             transition: transform 0.3s;
-            border-radius: 8px
         }
         .image-box:hover img {
             transform: scale(1.05);
