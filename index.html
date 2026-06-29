@@ -56,7 +56,7 @@
         });
         const cloudName = "dhhzaymet"; 
         const uploadPreset = "jh3cmolr";
-        window.triggerUpload() => {
+        window.triggerUpload = () => {
             const myWidget = cloudinary.createUploadWidget({
                 cloudName: "dhhzaymet",
                 uploadPreset: "jh3cmolr",
@@ -76,7 +76,7 @@
             });
             myWidget.open();
         };
-        window.handleSearch() => {
+        window.handleSearch = () => {
             searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
             currentPage = 1;
             renderGallery();
@@ -96,7 +96,7 @@
         }; // <--- Chỉ để dấu đóng ngoặc nhọn ở đây, không được có g
 
 
-        window.renderGallery() => {
+        window.renderGallery = () => {
             console.log("Đang render:", window.galleryImages);
             const grid = document.getElementById('gallery-grid');
             const pagination = document.getElementById('pagination');
@@ -138,7 +138,8 @@
         };
 
 
-        window.filterCategory(cat, el) => {
+        window.filterCategory = (cat, el) => {
+            console.log("Đã gọi được hàm filterCategory!");
             document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
             currentCategory = cat;
@@ -180,7 +181,7 @@
     
             
         };
-        window.openLightbox(src) => {
+        window.openLightbox = (src) => {
             // 1. Tạo lại mảng filtered giống hệt logic trong renderGallery/changeImage
             let filtered = galleryImages;
             if (currentCategory !== 'All') {
@@ -198,7 +199,7 @@
             document.getElementById('lightbox').style.display = 'flex';
         };
         // Dùng đoạn code này thay thế cho hàm changeImage hiện tại của bạn
-        window.changeImage(step) => {
+        window.changeImage = (step) => {
             // BƯỚC 1: LẤY DANH SÁCH ẢNH ĐANG ĐƯỢC LỌC (GIỐNG HỆT TRONG RENDERGALLERY)
             let filtered = galleryImages; // Bắt đầu với tất cả ảnh
 
