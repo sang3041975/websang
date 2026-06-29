@@ -56,7 +56,7 @@
         });
         const cloudName = "dhhzaymet"; 
         const uploadPreset = "jh3cmolr";
-        function triggerUpload() {
+        window.triggerUpload() => {
             const myWidget = cloudinary.createUploadWidget({
                 cloudName: "dhhzaymet",
                 uploadPreset: "jh3cmolr",
@@ -75,37 +75,13 @@
                 }
             });
             myWidget.open();
-        }
-        function handleSearch() {
+        };
+        window.handleSearch() => {
             searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
             currentPage = 1;
             renderGallery();
-        }
-        window.filterCategory(cat, el) {
-            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
-            currentCategory = cat;
-            currentPage = 1;
-
-            if (backgroundUrls[cat]) {
-                document.body.style.backgroundImage = `url("${backgroundUrls[cat]}")`;
-
-            const body = document.body;
-
-            const backgroundMap = {
-
-                'Rewrite': 'url("CGKagari.png")',
-                'Clannad': 'url("clannad-tomoya-okazaki-ushio-okazaki-okazaki-ushio-wallpaper-preview.jpg")',
-                'Kanon': 'url("filters_quality(95)format(webp).webp")',
-                'Air': 'url("8420bfad8ae2461f10decdc4d75ba993.jpg")',
-                'Angel Beats': 'url("angel-beats-anime-girls-piano-angel-wallpaper-preview.jpg")',
-                'Little Busters': 'url("488708789_1114601607348984_6705454001310567445_n.jpg")',
-                'Summer Pockets': 'url("thumb-1920-778267.jpg")',
-                'Anemoi': 'url("lFG6ACWFGOSsrwnQBThUpuTd8XXOwFSx6CQ2bRMZpe74vmGOwfbfH3CCArFmAfdV0N0uuOipKP-biKtABTAEl49mGjjmfIRHNn82DpoEq93q0tCzujAcpazDIz90HaHzEScUa_kw5aMx1FjYuP8xN3e2rHdb5afFLn7uMs6p10w.webp")',
-            }
-            body.style.backgroundImage = backgroundMap[cat] || 'url("hinh-nen-bau-troi-chill-10.jpg")'
-            renderGallery();
-        }
+        };
+        
         // 1. Khai báo danh sách ảnh nền (chỉ cần làm 1 lần)
         const backgroundUrls = {
             'Clannad': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/clannad-tomoya-okazaki-ushio-okazaki-okazaki-ushio-wallpaper-preview_vdbosu.jpg',
@@ -115,29 +91,13 @@
             'Kanon': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/filters_quality_95_format_webp_mrtbd1.webp',
             'Angel Beats': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/angel-beats-anime-girls-piano-angel-wallpaper-preview_dcc0wp.jpg',
             'Anemoi': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722041/lFG6ACWFGOSsrwnQBThUpuTd8XXOwFSx6CQ2bRMZpe74vmGOwfbfH3CCArFmAfdV0N0uuOipKP-biKtABTAEl49mGjjmfIRHNn82DpoEq93q0tCzujAcpazDIz90HaHzEScUa_kw5aMx1FjYuP8xN3e2rHdb5afFLn7uMs6p10w_hakyr5.webp',
-            'Summer Pockets': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722073/thumb-1920-778267_ht3lo1.jpg',
-            // ... thêm các mục khác
-        };
-        
-        // 2. Hàm preload ảnh (chạy ngay khi load trang)
-        function preloadBackgrounds() {
-            Object.values(backgroundUrls).forEach(url => {
-                const img = new Image();
-                img.src = url;
-            });
-        }
-        preloadBackgrounds();
-        
-        // 3. Sửa hàm filterCategory để đổi nền mượt mà
-        
-        
-        // 4. Sửa hàm onload để F5 không bị đen
-        window.onload = () => {
-            // Set nền mặc định là Clannad ngay lập tức
-            document.body.style.backgroundImage = `url("${backgroundUrls['Clannad']}")`;
-            renderGallery();
-        };
-        window.renderGallery() {
+            'Summer Pockets': 'https://res.cloudinary.com/dhhzaymet/image/upload/v1782722073/thumb-1920-778267_ht3lo1.jpg'
+
+        }; // <--- Chỉ để dấu đóng ngoặc nhọn ở đây, không được có g
+
+
+        window.renderGallery() => {
+            console.log("Đang render:", window.galleryImages);
             const grid = document.getElementById('gallery-grid');
             const pagination = document.getElementById('pagination');
             grid.innerHTML = ''; pagination.innerHTML = '';
@@ -175,7 +135,42 @@
                     pagination.appendChild(btn);
                 }
             }
+        };
+
+
+        window.filterCategory(cat, el) => {
+            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            currentCategory = cat;
+            currentPage = 1;
+
+            if (backgroundUrls[cat]) {
+                document.body.style.backgroundImage = `url("${backgroundUrls[cat]}")`;
+
+            const body = document.body;
+            }
+        };
+
+            
+        // 2. Hàm preload ảnh (chạy ngay khi load trang)
+        function preloadBackgrounds() {
+            Object.values(backgroundUrls).forEach(url => {
+                const img = new Image();
+                img.src = url;
+            });
         }
+        preloadBackgrounds();
+        
+        // 3. Sửa hàm filterCategory để đổi nền mượt mà
+        
+        
+        // 4. Sửa hàm onload để F5 không bị đen
+        window.onload = () => {
+            // Set nền mặc định là Clannad ngay lập tức
+            document.body.style.backgroundImage = `url("${backgroundUrls['Clannad']}")`;
+            renderGallery();
+        };
+        
         function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
         async function deleteItem(e, id) {
             e.stopPropagation();
@@ -184,8 +179,8 @@
             
     
             
-        }
-        window.openLightbox(src) {
+        };
+        window.openLightbox(src) => {
             // 1. Tạo lại mảng filtered giống hệt logic trong renderGallery/changeImage
             let filtered = galleryImages;
             if (currentCategory !== 'All') {
@@ -201,9 +196,9 @@
             // 3. Hiển thị
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').style.display = 'flex';
-        }
+        };
         // Dùng đoạn code này thay thế cho hàm changeImage hiện tại của bạn
-        window.changeImage(step) {
+        window.changeImage(step) => {
             // BƯỚC 1: LẤY DANH SÁCH ẢNH ĐANG ĐƯỢC LỌC (GIỐNG HỆT TRONG RENDERGALLERY)
             let filtered = galleryImages; // Bắt đầu với tất cả ảnh
 
@@ -229,7 +224,7 @@
     
             // Tùy chọn: Cập nhật thêm tiêu đề nếu muốn
             // document.getElementById('lightbox-title').innerText = filtered[currentIndex].title;
-        }
+        };
         let currentIndex = 0; // Biến lưu chỉ số ảnh đang xem
         document.addEventListener('keydown', function(e) {
             // Chỉ chạy nếu Lightbox đang mở
