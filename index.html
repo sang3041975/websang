@@ -101,16 +101,21 @@
             
             const bgLayer = document.getElementById('bg-layer');
             const backgrounds = {
-                'Clannad': 'url(clannad-tomoya-okazaki-ushio-okazaki-okazaki-ushio-wallpaper-preview.jpg)',
-                'Air': 'url(8420bfad8ae2461f10decdc4d75ba993.jpg)',
-                'Angel Beats':'url(Angel.jpg)',
-                'Default': 'url(hinh-nen-bau-troi-chill-10.jpg)'
+                'Clannad': 'url(clannad.jpg)',
+                'Air': 'url(air.jpg)',
+                'Angel Beats':'url(tenshi.jpg)',
+                'Kanon':'url(kanon.png)',
+                'Anemoi':'url(anemoi.png)',
+                'Khác':'url(nentrang.jpg)',
+                'Rewrite':'url(kagari.png)',
+                'Little Busters':'url(friend.png)',
+                'Summer Pockets':'url(Shiroha.jpg)'
 
             
             };
             
 
-            bgLayer.style.backgroundImage = backgrounds[cat] || 'url("hinh-nen-bau-troi-chill-10.jpg")';
+            bgLayer.style.backgroundImage = backgrounds[cat] || 'url("clannad.jpg")';
 
             localStorage.setItem('lastCategory', cat);
             renderGallery();           
