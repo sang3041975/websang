@@ -120,6 +120,43 @@
             localStorage.setItem('lastCategory', cat);
             renderGallery();           
         }
+        let activeLayer = 1;
+
+        // Mảng chứa các link ảnh nền của bạn
+        const bgSources = {
+            'Clannad': 'url(clannad.jpg)',
+            'Air': 'url(air.jpg)',
+            'Angel Beats':'url(tenshi.jpg)',
+            'Kanon':'url(kanon.png)',
+            'Anemoi':'url(anemoi.png)',
+            'Khác':'url(nentrang.jpg)',
+            'Rewrite':'url(kagari.png)',
+            'Little Busters':'url(friend.png)',
+            'Summer Pockets':'url(Shiroha.jpg)'
+        };
+        
+        // Bước 1: Preload toàn bộ ảnh nền khi trang vừa tải xong
+        Object.values(bgSources).forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+        
+        function updateBackground(cat) {
+            const nextBg = bgSources[cat] || bgSources['Clannad'];
+            
+            // Chọn lớp nền để đổi
+            const nextLayer = activeLayer === 1 ? document.getElementById('bg-layer-2') : document.getElementById('bg-layer-1');
+            const currentLayer = activeLayer === 1 ? document.getElementById('bg-layer-1') : document.getElementById('bg-layer-2');
+            
+            // Gán ảnh mới vào lớp đang ẩn
+            nextLayer.style.backgroundImage = `url('${nextBg}')`;
+            
+            // Kích hoạt chuyển đổi mượt
+            nextLayer.style.opacity = 1;
+            currentLayer.style.opacity = 0;
+            
+            activeLayer = activeLayer === 1 ? 2 : 1;
+        }
         // Lấy category cuối đã xem (nếu có)
         const savedCat = localStorage.getItem('lastCategory') || 'Clannad';
         window.currentCategory = savedCat;
@@ -407,6 +444,7 @@
             width: 100%;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             
+            
         }
         .gallery-item {
             position: relative; 
@@ -568,7 +606,7 @@
             z-index: -1; /* Luôn nằm dưới cùng */
             background-size: cover;
             background-position: center;
-            transition: background 1.5s ease; /* Thời gian chuyển cảnh chậm, mượt */
+            transition: opacity 1.2s ease-in-out; /* Thời gian chuyển cảnh chậm, mượt */
         }
         
         /* Lớp phủ tối để làm nổi bật nội dung (đặc biệt quan trọng) */
@@ -582,7 +620,8 @@
     </style>
 </head>
 <body>
-    <div class="bg-layer" id="bg-layer"></div>
+    <div id="bg-layer-1" class="bg-layer" style="opacity: 1;"></div>
+    <div id="bg-layer-2" class="bg-layer" style="opacity: 0;"></div>
     <button id="backToTop" style="position:fixed; bottom:20px; right:20px; display:none; padding:10px; border-radius:50%; border:none; background:#0284c7; color:white; cursor:pointer;">↑</button>
     <div id="effect-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></div>
     <header class="gallery-header">
