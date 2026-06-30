@@ -109,7 +109,7 @@
                 'Anemoi':'url(anemoi.png)',
                 'Khác':'url(nentrang.jpg)',
                 'Rewrite':'url(kagari.png)',
-                'Little Busters':'url(friend.png)',
+                'Little Busters':'url(friend.jpg)',
                 'Summer Pockets':'url(Shiroha.jpg)'
 
             
@@ -132,7 +132,7 @@
             'Anemoi':'anemoi.png',
             'Khác':'nentrang.jpg',
             'Rewrite':'kagari.png',
-            'Little Busters':'friend.png',
+            'Little Busters':'friend.jpg',
             'Summer Pockets':'Shiroha.jpg'
         };
         
@@ -143,21 +143,19 @@
         });
         
         function updateBackground(cat) {
-            console.log("Đang đổi nền sang:", cat, "với link:", nextBg);
+            // Đảm bảo biến nextBg được tạo ngay tại đây
             const nextBg = bgSources[cat] || bgSources['Clannad'];
             
-            // Chọn lớp nền để đổi
+            // Logic 2 lớp
             const nextLayer = activeLayer === 1 ? document.getElementById('bg-layer-2') : document.getElementById('bg-layer-1');
             const currentLayer = activeLayer === 1 ? document.getElementById('bg-layer-1') : document.getElementById('bg-layer-2');
             
-            // Gán ảnh mới vào lớp đang ẩn
-            nextLayer.style.backgroundImage = `url('${nextBg}')`;
-            
-            // Kích hoạt chuyển đổi mượt
-            nextLayer.style.opacity = 1;
-            currentLayer.style.opacity = 0;
-            
-            activeLayer = activeLayer === 1 ? 2 : 1;
+            if (nextLayer && currentLayer) {
+                nextLayer.style.backgroundImage = `url('${nextBg}')`;
+                nextLayer.style.opacity = 1;
+                currentLayer.style.opacity = 0;
+                activeLayer = activeLayer === 1 ? 2 : 1;
+            }
         }
         // Lấy category cuối đã xem (nếu có)
         const savedCat = localStorage.getItem('lastCategory') || 'Clannad';
@@ -269,7 +267,7 @@
             }
         });
 
-        const btnTop = document.ElementById("backToTop");
+        const btnTop = document.getElementById("backToTop");
         window.onscroll = () => {
             btnTop.style.display = (document.documentElement.scrollTop > 300) ? "block" : "none";
         };
