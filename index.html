@@ -274,34 +274,7 @@
         btnTop.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
 
         
-        async function checkPassword() {
-            console.log("Đang kiểm tra mật khẩu...");
-            const input = document.getElementById('password-input').value;
-            if (!input) {
-                alert("Vui lòng nhập mật khẩu!");
-                return;
-            }
-            const encoder = new TextEncoder();
-            const data = encoder.encode(input);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        
-            // Đây là mã hash chuẩn cho mật khẩu nnms20122011
-            const secretHash = "c6194b3c7913364f3317765108b34001968832a83971c26b5ab4e402636e053f";
-            
-            if (hashHex === secretHash) {
-                document.getElementById('login-modal').style.display = 'none';
-                sessionStorage.setItem('isLoggedIn', 'true');
-            } else {
-                document.getElementById('error-msg').innerText = "Sai mật khẩu rồi bạn ơi!";
-            }
-        }
-        window.onload = function() {
-            if (sessionStorage.getItem('isLoggedIn') === 'true') {
-                document.getElementById('login-modal').style.display = 'none';
-            }
-        };
+       
 
         
         </script>
@@ -696,15 +669,7 @@
             <button class="btn-nav next" onclick="changeImage(1)">&#10095;</button>
         </div>
     </div>
-<div id="login-modal" style="position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 9999; display: flex; justify-content: center; align-items: center; color: white; font-family: sans-serif;">
-    <div style="text-align: center; border: 1px solid #333; padding: 40px; border-radius: 10px; background: #111;">
-        <h2>ANEMOI GATE</h2>
-        <input type="password" id="password-input" placeholder="Nhập mật khẩu..." style="padding: 10px; margin: 15px 0; width: 250px; background: #222; border: 1px solid #444; color: white; border-radius: 5px;">
-        <br>
-        <button onclick="checkPassword()" style="padding: 10px 25px; cursor: pointer; background: #007bff; border: none; color: white; border-radius: 5px; font-weight: bold;">Đăng nhập</button>
-        <p id="error-msg" style="color: #ff4d4d; margin-top: 15px;"></p>
-    </div>
-</div>
+
         
         
         
