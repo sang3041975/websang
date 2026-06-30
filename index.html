@@ -275,7 +275,12 @@
 
         
         async function checkPassword() {
+            console.log("Đang kiểm tra mật khẩu...");
             const input = document.getElementById('password-input').value;
+            if (!input) {
+                alert("Vui lòng nhập mật khẩu!");
+                return;
+            }
             const encoder = new TextEncoder();
             const data = encoder.encode(input);
             const hashBuffer = await crypto.subtle.digest('SHA-256', data);
