@@ -98,6 +98,7 @@
             currentPage = 1;
             localStorage.setItem('lastCategory',cat);
             renderGallery();
+            updateBackground(cat);
             
             const bgLayer = document.getElementById('bg-layer');
             const backgrounds = {
@@ -142,6 +143,7 @@
         });
         
         function updateBackground(cat) {
+            console.log("Đang đổi nền sang:", cat, "với link:", nextBg);
             const nextBg = bgSources[cat] || bgSources['Clannad'];
             
             // Chọn lớp nền để đổi
