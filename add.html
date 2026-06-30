@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSweb</title>
+
+    <style>
+        /* --- 1. THIẾT LẬP CƠ BẢN & NỀN TRỜI --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-image: url('hinh-nen-bau-troi-chill-10.jpg'); 
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+        }
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px; /* Mở rộng chiều rộng tổng thể */
+            padding: 25px 50px 10px 50px; 
+            margin: 0 auto;
+        }
+        .logo {
+            font-weight: bold;
+            font-size: 22px;
+            color: #0284c7;
+            letter-spacing: 2px;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #0284c7;
+            padding: 0 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+        .nav-links a.active, .nav-links a:hover {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header class="gallery-header">
+        <div class="logo">MSweb</div>
+        <nav class="nav-links">
+            <a href="#" class="active">TRANG CHỦ</a> | <a href="#">VĂN BẢN</a> | <a href="#">PHIM</a> | <a href="index.html">ẢNH</a> | <a href="#">NHẠC</a>
+        </nav>
+    </header>
+</body>
+</html>
